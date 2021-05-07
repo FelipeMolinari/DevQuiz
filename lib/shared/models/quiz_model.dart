@@ -14,6 +14,6 @@ class QuizModel {
     required this.questions,
     this.questionAnswered = 0,
     required this.image,
-    this.level = Level.facil,
+    required this.level,
   });
 }
