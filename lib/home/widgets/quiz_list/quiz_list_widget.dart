@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quiz/home/widgets/quiz_card/quiz_card.dart';
+import 'package:flutter_quiz/shared/models/quiz_model.dart';
 
 class QuizListWidget extends StatelessWidget {
-  const QuizListWidget({Key? key}) : super(key: key);
+  final List<QuizModel> quizzes;
+  const QuizListWidget({Key? key, required this.quizzes}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,12 +13,13 @@ class QuizListWidget extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: 16,
         mainAxisSpacing: 16,
-        children: [
-          QuizCardWidget(),
-          QuizCardWidget(),
-          QuizCardWidget(),
-          QuizCardWidget()
-        ],
+        children: quizzes
+            .map((e) => QuizCardWidget(
+                  title: e.title,
+                  progress: e.questionAnswered,
+                  totalQuestions: e.questions.length,
+                ))
+            .toList(),
       ),
     );
   }
