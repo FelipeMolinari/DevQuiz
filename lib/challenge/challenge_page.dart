@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quiz/challenge/widget/buttons_footer/buttons_footer_widget.dart';
 import 'package:flutter_quiz/challenge/widget/question_indicator/question_indicator.dart';
 import 'package:flutter_quiz/challenge/widget/quiz/quiz_widget.dart';
 
@@ -17,11 +18,17 @@ class _ChallengePageWidgetState extends State<ChallengePageWidget> {
         preferredSize: Size.fromHeight(60),
         child: SafeArea(top: true, child: QuestionIndicatorWidget()),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: QuizWidget(
-          title: 'O que o Flutter faz em sua totalidade?',
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: QuizWidget(
+              title: 'O que o Flutter faz em sua totalidade?',
+            ),
+          ),
+          ButtonsFooterWidget(),
+        ],
       ),
     );
   }
