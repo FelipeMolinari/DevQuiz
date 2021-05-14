@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quiz/challenge/widget/awnser/awnser_widget.dart';
 import 'package:flutter_quiz/core/app_text_styles.dart';
+import 'package:flutter_quiz/shared/models/question_model.dart';
 
 class QuizWidget extends StatelessWidget {
-  final String title;
-  const QuizWidget({Key? key, required this.title}) : super(key: key);
+  final QuestionModel question;
+  const QuizWidget({Key? key, required this.question}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,26 +13,14 @@ class QuizWidget extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            title,
+            question.title,
             style: AppTextStyles.heading,
           ),
           SizedBox(
             height: 28,
           ),
-          AwnserWidget(
-              content:
-                  'Possibilita a criacao de aplicativos compilados Nativamente.'),
-          AwnserWidget(
-              isRight: false,
-              isSelected: true,
-              content:
-                  'Possibilita a criacao de aplicativos compilados Nativamente.'),
-          AwnserWidget(
-              content:
-                  'Possibilita a criacao de aplicativos compilados Nativamente.'),
-          AwnserWidget(
-              content:
-                  'Possibilita a criacao de aplicativos compilados Nativamente.'),
+          ...question.awnsers.map((e) => AwnserWidget(
+              isRight: e.isRight, isSelected: false, content: e.title))
         ],
       ),
     );

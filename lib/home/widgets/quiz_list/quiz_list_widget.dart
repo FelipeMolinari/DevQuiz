@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quiz/challenge/challenge_page.dart';
 import 'package:flutter_quiz/home/widgets/quiz_card/quiz_card.dart';
 import 'package:flutter_quiz/shared/models/quiz_model.dart';
 
@@ -18,6 +19,14 @@ class QuizListWidget extends StatelessWidget {
                   title: e.title,
                   progress: e.questionAnswered,
                   totalQuestions: e.questions.length,
+                  onTap: () => {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ChallengePageWidget(
+                                  questions: e.questions,
+                                )))
+                  },
                 ))
             .toList(),
       ),

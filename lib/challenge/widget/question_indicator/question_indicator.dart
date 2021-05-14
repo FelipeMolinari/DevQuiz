@@ -8,24 +8,20 @@ class QuestionIndicatorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 18),
+      padding: EdgeInsets.symmetric(horizontal: 12),
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Questao 04",
-                    style: AppTextStyles.body,
-                  ),
-                  Text(
-                    "de 10",
-                    style: AppTextStyles.body,
-                  )
-                ]),
-          ),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Text(
+              "Questao 04",
+              style: AppTextStyles.body,
+            ),
+            Text(
+              "de 10",
+              style: AppTextStyles.body,
+            )
+          ]),
+          SizedBox(height: 12),
           ProgressIndicatorWidget(
             value: 0.33,
           )
