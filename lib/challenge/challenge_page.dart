@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quiz/challenge/challenge_controller.dart';
 import 'package:flutter_quiz/challenge/widget/buttons_footer/buttons_footer_widget.dart';
 import 'package:flutter_quiz/challenge/widget/question_indicator/question_indicator.dart';
 import 'package:flutter_quiz/challenge/widget/quiz/quiz_widget.dart';
@@ -13,6 +14,17 @@ class ChallengePageWidget extends StatefulWidget {
 }
 
 class _ChallengePageWidgetState extends State<ChallengePageWidget> {
+  final controller = ChallengeController();
+  final pageController = PageController();
+
+  @override
+  void initState() {
+    pageController.addListener(() {
+      controller.currentPage = pageController.page!.toInt() + 1;
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,25 +39,36 @@ class _ChallengePageWidgetState extends State<ChallengePageWidget> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 BackButton(),
-                QuestionIndicatorWidget(),
+                ValueListenableBuilder(
+                  valueListenable: controller.currentPageNotifier,
+                  builder: (BuildContext context, dynamic value, _) {
+                    return QuestionIndicatorWidget(
+                      currentPage: value,
+                      size: widget.questions.length,
+                    );
+                  },
+                ),
               ],
             ),
           ),
         ),
       ),
       body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: QuizWidget(
-                question: widget.questions[0],
-              ),
-            ),
-            ButtonsFooterWidget(),
-          ],
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: PageView(
+          physics: NeverScrollableScrollPhysics(),
+          controller: pageController,
+          children:
+              widget.questions.map((e) => QuizWidget(question: e)).toList(),
         ),
+      ),
+      bottomNavigationBar: ButtonsFooterWidget(
+        primaryButtonOnTap: () => {},
+        secondaryButtonOnTap: () => pageController.nextPage(
+            duration: Duration(
+              milliseconds: 500,
+            ),
+            curve: Curves.easeIn),
       ),
     );
   }

@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quiz/challenge/widget/next_button/next_button_widget.dart';
 
 class ButtonsFooterWidget extends StatelessWidget {
-  const ButtonsFooterWidget({Key? key}) : super(key: key);
+  final VoidCallback primaryButtonOnTap;
+  final VoidCallback secondaryButtonOnTap;
+
+  const ButtonsFooterWidget(
+      {Key? key,
+      required this.primaryButtonOnTap,
+      required this.secondaryButtonOnTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +23,14 @@ class ButtonsFooterWidget extends StatelessWidget {
             children: [
               Expanded(
                   child: NextButtonWidget.secondary(
-                      label: 'Facil', onPressed: () => {})),
+                      label: 'Pular', onPressed: secondaryButtonOnTap)),
               SizedBox(
                 width: 7,
               ),
               Expanded(
                   child: NextButtonWidget.primary(
                 label: 'Confirmar',
-                onPressed: () => {},
+                onPressed: primaryButtonOnTap,
               )),
             ],
           ),
