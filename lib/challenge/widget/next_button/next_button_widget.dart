@@ -38,18 +38,21 @@ class NextButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 48,
-      child: TextButton(
-        style: ButtonStyle(
-            side:
-                MaterialStateProperty.all(BorderSide(color: AppColors.border)),
-            backgroundColor: MaterialStateProperty.all(backgroundColor),
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10)))),
-        onPressed: onPressed,
-        child: Text(
-          label,
-          style: GoogleFonts.notoSans(
-              fontWeight: FontWeight.w600, fontSize: 15, color: textColor),
+      padding: EdgeInsets.symmetric(horizontal: 18),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: backgroundColor,
+        border: Border.all(color: AppColors.border),
+      ),
+      child: Expanded(
+        flex: 1,
+        child: TextButton(
+          onPressed: onPressed,
+          child: Text(
+            label,
+            style: GoogleFonts.notoSans(
+                fontWeight: FontWeight.w600, fontSize: 15, color: textColor),
+          ),
         ),
       ),
     );

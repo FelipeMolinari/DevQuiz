@@ -25,6 +25,14 @@ class _ChallengePageWidgetState extends State<ChallengePageWidget> {
     super.initState();
   }
 
+  void onNextPage() {
+    pageController.nextPage(
+        duration: Duration(
+          milliseconds: 500,
+        ),
+        curve: Curves.easeIn);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,21 +62,17 @@ class _ChallengePageWidgetState extends State<ChallengePageWidget> {
         ),
       ),
       body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.all(16),
         child: PageView(
           physics: NeverScrollableScrollPhysics(),
           controller: pageController,
-          children:
-              widget.questions.map((e) => QuizWidget(question: e)).toList(),
+          children: widget.questions
+              .map((e) => QuizWidget(
+                    question: e,
+                    onNextPage: onNextPage,
+                  ))
+              .toList(),
         ),
-      ),
-      bottomNavigationBar: ButtonsFooterWidget(
-        primaryButtonOnTap: () => {},
-        secondaryButtonOnTap: () => pageController.nextPage(
-            duration: Duration(
-              milliseconds: 500,
-            ),
-            curve: Curves.easeIn),
       ),
     );
   }
